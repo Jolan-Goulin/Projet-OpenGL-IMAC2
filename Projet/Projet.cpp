@@ -16,22 +16,25 @@
 #include "glimac/Ttf.hpp"
 
 
-
 using namespace glimac;
 
 
 // create basic game variables
 Personnage p;
-std::vector<int> map(10, 0);
+int basic_case =0;
+int map_length = 10;
+int offset_map = 12;
+std::vector<int> map(map_length, basic_case);
 int map_start = 0;
 float time_rotation = 0;
+float time_paused =0;
+float total_time_paused =0;
 
 
 
 int main(int argc, char** argv) {
     // Initialize SDL and open a window
     SDLWindowManager windowManager(800, 600, "To the moons !");
-    //SDL_TTF_init();
 
     // Initialize glew for OpenGL3+ support
     GLenum glewInitError = glewInit();
@@ -67,11 +70,6 @@ int main(int argc, char** argv) {
     // Initialise drawing structures
     perso_draw.initialise();
     box.initialise();
-
-    
-    
-
-
 
     // Application loop:
 	bool done = false;
@@ -117,7 +115,7 @@ int main(int argc, char** argv) {
                             std::cout << "saut" << std::endl;
                             p.saut();
                             break;
-                        case SDLK_a:
+                        case SDLK_c:
                             std::cout << "mode change" << std::endl;
                             camera.changeMode();
                             break;
@@ -136,6 +134,14 @@ int main(int argc, char** argv) {
                         case SDLK_l:
                             std::cout << "lock camera" << std::endl;
                             camera.lock();
+                            break;
+                        case SDLK_a:
+                            std::cout << "game saved" << std::endl;
+                            p.save(map_start, map);
+                            break;
+                        case SDLK_w:
+                            std::cout << "game loaded" << std::endl;
+                            p.load(map_start, map);
                             break;
                         default:
                             break;
@@ -157,11 +163,10 @@ int main(int argc, char** argv) {
 					break;
 			}
 		}
-        
         // if the character is alive, draw the game
         if(p.isAlive()){
             // if needed update the map by deleting last case and creating a new one
-            if(std::abs(map_start*2) +12 < p.distance()){
+            if(std::abs(map_start*2)+offset_map < p.distance()){
                 map_start -=6;
                 update(map);
             }
@@ -171,7 +176,12 @@ int main(int argc, char** argv) {
             p.avancer();
             //actualise time used for ratation only if character is alive (dead characters don't rotate) and if game ain't paused
             if(!p.paused()){
-                time_rotation = windowManager.getTime();
+                total_time_paused += time_paused;
+                time_paused = 0;
+                time_rotation = windowManager.getTime()-total_time_paused;
+            }
+            else{
+                time_paused = windowManager.getTime() - (time_rotation+total_time_paused);
             }
         }
 
@@ -179,7 +189,6 @@ int main(int argc, char** argv) {
             // Clean the depth buffer on each loop
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             // Prevent that your skybox draws depth values, and the skybox will never be in front of anything that will be drawn later
-            glDisable(GL_DEPTH_TEST);
             // Skybox
             // get the shader
             skyBoxProgram.m_Program.use();
@@ -235,7 +244,7 @@ int main(int argc, char** argv) {
             }
         
     
-        //flDrawMenu();
+
         // Unbind of GL_TEXTURE0 unit
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, 0);
@@ -244,6 +253,7 @@ int main(int argc, char** argv) {
         // Update the display
         windowManager.swapBuffers();
 	}
+    
 
 	return EXIT_SUCCESS;
 }

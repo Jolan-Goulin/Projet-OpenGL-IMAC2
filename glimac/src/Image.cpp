@@ -28,19 +28,4 @@ std::unique_ptr<Image> loadImage(const FilePath& filepath) {
     return pImage;
 }
 
-std::unordered_map<FilePath, std::unique_ptr<Image>> ImageManager::m_ImageMap;
-
-const Image* ImageManager::loadImage(const FilePath& filepath) {
-    auto it = m_ImageMap.find(filepath);
-    if(it != std::end(m_ImageMap)) {
-        return (*it).second.get();
-    }
-    auto pImage = glimac::loadImage(filepath);
-    if(!pImage) {
-        return nullptr;
-    }
-    auto& img = m_ImageMap[filepath] = std::move(pImage);
-    return img.get();
-}
-
 }

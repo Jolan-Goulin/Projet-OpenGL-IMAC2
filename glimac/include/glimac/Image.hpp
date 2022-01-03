@@ -27,22 +27,11 @@ public:
         return m_nHeight;
     }
 
-    const glm::vec4* getPixels() const {
-        return m_Pixels.get();
-    }
-
     glm::vec4* getPixels() {
         return m_Pixels.get();
     }
 };
 
 std::unique_ptr<Image> loadImage(const FilePath& filepath);
-
-class ImageManager {
-private:
-    static std::unordered_map<FilePath, std::unique_ptr<Image>> m_ImageMap;
-public:
-    static const Image* loadImage(const FilePath& filepath);
-};
 
 }

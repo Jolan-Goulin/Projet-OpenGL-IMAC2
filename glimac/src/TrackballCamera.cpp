@@ -47,7 +47,7 @@ void TrackballCamera::rotateUp(const float degrees) {
 }
 
 void TrackballCamera::changeMode(){
-	// put the camera in or out of the fps mode and change settings to matche the new mode
+	// put the camera in or out of the fps mode and change settings to match the new mode
 	// check if camera is locked
 	if(m_locked == false){
 		if (m_camera_fps == true){

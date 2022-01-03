@@ -4,8 +4,6 @@
 #include <string>
 #include "FilePath.hpp"
 
-#define GLIMAC_SHADER_SRC(str) #str
-
 namespace glimac {
 
 class Shader {

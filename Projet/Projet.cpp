@@ -3,17 +3,13 @@
 #include <iostream>
 #include <stb/stb_image.hpp>
 
-#include <glimac/Program.hpp>
 #include <glimac/FilePath.hpp>
-#include <glimac/Sphere.hpp>
-#include <glimac/Image.hpp>
-
 
 #include "glimac/GameObjects.hpp"
 #include "glimac/Map.hpp"
 #include "glimac/PersoDraw.hpp"
 #include "glimac/BoxDraw.hpp"
-#include "glimac/Ttf.hpp"
+#include "glimac/common.hpp"
 
 
 using namespace glimac;
@@ -92,7 +88,7 @@ int main(int argc, char** argv) {
                         camera.moveFront(-0.5f);
                     }
                 break;
-                // Check if user tried to imput a command with keyboard and execute it
+                // Check if user tried to input a command with keyboard and execute it
                 case SDL_KEYDOWN:
                     switch(e.key.keysym.sym) {
                         case SDLK_UP:
@@ -147,7 +143,7 @@ int main(int argc, char** argv) {
                             break;
                         }
                 break;
-                // Check if the user drag the screen with his mouse and move camera according to his mouvements 
+                // Check if the user drag the screen with his mouse and move camera according to his movements
 				case SDL_MOUSEMOTION:
                     if (windowManager.isMouseButtonPressed(SDL_BUTTON_LEFT)) {
                         if (e.motion.xrel != 0) {
@@ -163,6 +159,8 @@ int main(int argc, char** argv) {
 					break;
 			}
 		}
+
+
         // if the character is alive, draw the game
         if(p.isAlive()){
             // if needed update the map by deleting last case and creating a new one
@@ -170,11 +168,12 @@ int main(int argc, char** argv) {
                 map_start -=6;
                 update(map);
             }
+
             // check if the character is in the map and collision with pieces, obstacles and pits
             isIn(map_start, map,  p);
-            //make the character move according to the imputed deplacements
+            //make the character move according to the imputed deplacement
             p.avancer();
-            //actualise time used for ratation only if character is alive (dead characters don't rotate) and if game ain't paused
+            //actualise time used for rotation only if character is alive (dead characters don't rotate) and if game ain't paused
             if(!p.paused()){
                 if(time_paused != 0){
                     total_time_paused += time_paused;
@@ -187,17 +186,15 @@ int main(int argc, char** argv) {
             }
         }
 
-            // affichage
             // Clean the depth buffer on each loop
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-            // Prevent that your skybox draws depth values, and the skybox will never be in front of anything that will be drawn later
+
+
             // Skybox
-            // get the shader
             skyBoxProgram.m_Program.use();
-            // draw the skybox
             box.drawSkybox(camera, skyBoxProgram.uMVMatrix, skyBoxProgram.uMVPMatrix, ProjMatrix);
             
-            // if the chamera is not in fps mode draw the character
+            // if the camera is not in fps mode draw the character
             if (camera.modefps() == false){
                 // Tell OpenGL to use the earthProgram
                 earthProgram.m_Program.use();
@@ -213,14 +210,13 @@ int main(int argc, char** argv) {
                 perso_draw.drawMoons(p, camera, moonProgram.uMVMatrix, moonProgram.uNormalMatrix, moonProgram.uMVPMatrix, ProjMatrix, time_rotation);
                 
             }
-            // draw the cases, obstacles and pieces (and dont draw the pits since it's pits)
-            // loop on the cases
+            // draw the cases, obstacles and pieces (and don't draw the pits since it's pits)
             for (int i=0;i <10; i++){
                 // get case's position
                 int case_position = -6*i + map_start;
                 // initialise case drawing
                 skyBoxProgram.m_Program.use();
-                // if there is not pit draw the case
+                // if there is no pit draw the case
                 if (map[i]!=3){
                     box.drawCase(case_position, p, camera, skyBoxProgram.uMVMatrix, skyBoxProgram.uMVPMatrix, ProjMatrix);
                 }

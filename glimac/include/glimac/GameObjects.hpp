@@ -36,7 +36,6 @@ class Personnage {
         inline float distance() const {return m_distance;}
         inline bool isInDanger() const {return m_danger;}
         inline bool isAlive() const {return m_alive;}
-        inline bool isMovingRight() const {return m_isMovingRight;}
         inline void movingRight(){m_isMovingRight = true; m_isMovingLeft = false;}
         inline void movingLeft(){m_isMovingLeft = true; m_isMovingRight = false;}
         void colisionObstacle();

@@ -1,16 +1,5 @@
 #include <cmath>
 #include <vector>
-#include <iostream>
-#include <random>
-#include "glimac/common.hpp"
-
-#include <GL/glew.h>
-#include <stb/stb_image.hpp>
-
-#include <glimac/Program.hpp>
-#include <glimac/FilePath.hpp>
-#include <glimac/Sphere.hpp>
-#include <glimac/Image.hpp>
 #include <glimac/Map.hpp>
 
 namespace glimac {

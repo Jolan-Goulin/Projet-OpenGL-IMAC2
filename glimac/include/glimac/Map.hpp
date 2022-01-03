@@ -14,8 +14,6 @@
 #include <glimac/Image.hpp>
 #include "glimac/GameObjects.hpp"
 
-
-
 namespace glimac {
 
 void update(std::vector<int> &map);

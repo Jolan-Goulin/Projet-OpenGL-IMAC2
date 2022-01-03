@@ -171,7 +171,6 @@ void Box::drawCase(const int &x, const Personnage &p, const TrackballCamera &cam
             
             // Send matrices to the GPU            
             glUniformMatrix4fv(uMVMatrix, 1, GL_FALSE, glm::value_ptr(boxMVMatrix));
-            //glUniformMatrix4fv(moonProgram.uNormalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(moonMVMatrix))));
             glUniformMatrix4fv(uMVPMatrix, 1, GL_FALSE, glm::value_ptr(ProjMatrix));
             
             // Drawing call
@@ -199,7 +198,6 @@ void Box::drawCasePit(const int &x, const Personnage &p, const TrackballCamera &
             
             // Send matrices to the GPU            
             glUniformMatrix4fv(uMVMatrix, 1, GL_FALSE, glm::value_ptr(boxMVMatrix));
-            //glUniformMatrix4fv(moonProgram.uNormalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(moonMVMatrix))));
             glUniformMatrix4fv(uMVPMatrix, 1, GL_FALSE, glm::value_ptr(ProjMatrix));
             
             // Drawing call
@@ -211,7 +209,6 @@ void Box::drawCasePit(const int &x, const Personnage &p, const TrackballCamera &
             
             // Send matrices to the GPU            
             glUniformMatrix4fv(uMVMatrix, 1, GL_FALSE, glm::value_ptr(boxMVMatrix));
-            //glUniformMatrix4fv(moonProgram.uNormalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(moonMVMatrix))));
             glUniformMatrix4fv(uMVPMatrix, 1, GL_FALSE, glm::value_ptr(ProjMatrix));
             
             // Drawing call
@@ -240,7 +237,6 @@ void Box::drawObstacle(const int &x, const Personnage &p, const TrackballCamera 
             
             // Send matrices to the GPU            
             glUniformMatrix4fv(uMVMatrix, 1, GL_FALSE, glm::value_ptr(boxMVMatrix));
-            //glUniformMatrix4fv(moonProgram.uNormalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(moonMVMatrix))));
             glUniformMatrix4fv(uMVPMatrix, 1, GL_FALSE, glm::value_ptr(ProjMatrix));
             
             // Drawing call
@@ -261,7 +257,6 @@ void Box::drawMonkeySkybox( const Personnage &p, const TrackballCamera &camera, 
     glm::mat4 boxMVMatrix = glm::translate(MVMatrix, glm::vec3(2*(2*p.movedleft()), 0.2-p.movedup(), 5.0)); 
     // Send matrices to the GPU            
     glUniformMatrix4fv(uMVMatrix, 1, GL_FALSE, glm::value_ptr(boxMVMatrix));
-    //glUniformMatrix4fv(moonProgram.uNormalMatrix, 1, GL_FALSE, glm::value_ptr(glm::transpose(glm::inverse(moonMVMatrix))));
     glUniformMatrix4fv(uMVPMatrix, 1, GL_FALSE, glm::value_ptr(ProjMatrix));
     
     // Drawing call

@@ -1,17 +1,14 @@
-#include <cmath>
 #include <vector>
 #include <iostream>
-#include "glimac/common.hpp"
 #include "glimac/GameObjects.hpp"
 #include <fstream>
-#include <SDL2/SDL_mixer.h>
 #include <typeinfo>
 #include <cassert>
 
 namespace glimac {
 
 void Personnage::saut(){
-    // if the character is on the gound, activate jumping state
+    // if the character is on the ground, activate jumping state
     if( m_moved_up <0.01){
         m_isMovingUp = true;
     }

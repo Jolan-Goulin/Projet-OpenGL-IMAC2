@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8)
 
 project(ImacGL)
-
+cmake_policy(SET CMP0072 NEW)
 add_definitions(-std=c++11)
 
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/CMake)

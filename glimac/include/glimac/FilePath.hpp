@@ -53,16 +53,6 @@ public:
         return m_FilePath.substr(pos + 1);
     }
 
-    bool hasExt(const std::string& ext) const {
-        int offset = (int) m_FilePath.size() - (int) ext.size();
-        return offset >= 0 && m_FilePath.substr(offset, ext.size()) == ext;
-    }
-
-    /*! adds file extension */
-    FilePath addExt(const std::string& ext = "") const {
-        return FilePath(m_FilePath + ext);
-    }
-
     /*! concatenates two filepaths to this/other */
     FilePath operator +(const FilePath& other) const {
         if (m_FilePath.empty()) {

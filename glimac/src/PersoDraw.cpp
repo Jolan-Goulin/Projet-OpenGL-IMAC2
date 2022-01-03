@@ -1,5 +1,6 @@
 
 #include "glimac/PersoDraw.hpp"
+#include <stdexcept>
 
 namespace glimac {
 
@@ -19,23 +20,23 @@ GLuint* texturesInit(){
     try{
     if (planetEarthTexture == NULL) {
         std::cerr << "Planet Earth texture unique ptr is null. Exit program." << std::endl;
-        throw std::exception_ptr();
+        throw std::invalid_argument("invalid texture path");
     }
     
 
     if (moonTexture == NULL) {
         std::cerr << "Moon texture unique ptr is null. Exit program." << std::endl;
-        throw std::exception_ptr();
+        throw std::invalid_argument("invalid texture path");
     }
 
     if (cloudTexture == NULL) {
         std::cerr << "Cloud texture unique ptr is null. Exit program." << std::endl;
-        throw std::exception_ptr();
+        throw std::invalid_argument("invalid texture path");
     }
 
     if (rainbowTexture == NULL) {
         std::cerr << "rainbowTexture unique ptr is null. Exit program." << std::endl;
-        throw std::exception_ptr();
+        throw std::invalid_argument("invalid texture path");
     }
     }
     catch (std::exception& e)

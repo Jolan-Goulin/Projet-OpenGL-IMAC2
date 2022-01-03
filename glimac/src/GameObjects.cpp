@@ -5,6 +5,8 @@
 #include "glimac/GameObjects.hpp"
 #include <fstream>
 #include <SDL2/SDL_mixer.h>
+#include <typeinfo>
+#include <cassert>
 
 namespace glimac {
 
@@ -146,6 +148,7 @@ void Personnage::write_highscore(){
             std::cout << e.what() << '\n';
         }
         // write highscore in file
+        assert(typeid(m_score).name()==typeid(int).name());
         highscore_file << m_score << std::endl;
     }
 }
@@ -159,7 +162,7 @@ void Personnage::save(const int &map_start, const std::vector<int> &map){
         try{
         if (!save) {
             std::cerr << "Couldn't open highscore file. An error we could have dodged if you were more humble" << std::endl;
-            throw std::exception_ptr();
+            throw std::invalid_argument("invalid texture path");
         }
         }
         catch (std::exception& e)
@@ -193,7 +196,7 @@ void Personnage::load(int &map_start, std::vector<int> &map){
     try{
     if (!save) {
         std::cerr << "Couldn't open highscore file. An error we could have dodged if you were more humble" << std::endl;
-        throw std::exception_ptr();
+        throw std::invalid_argument("invalid texture path");
     }
     }
     catch (std::exception& e)

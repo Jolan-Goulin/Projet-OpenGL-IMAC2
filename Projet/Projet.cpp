@@ -176,8 +176,10 @@ int main(int argc, char** argv) {
             p.avancer();
             //actualise time used for ratation only if character is alive (dead characters don't rotate) and if game ain't paused
             if(!p.paused()){
-                total_time_paused += time_paused;
-                time_paused = 0;
+                if(time_paused != 0){
+                    total_time_paused += time_paused;
+                    time_paused = 0;
+                }
                 time_rotation = windowManager.getTime()-total_time_paused;
             }
             else{

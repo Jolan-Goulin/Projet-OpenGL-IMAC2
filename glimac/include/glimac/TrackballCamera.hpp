@@ -2,6 +2,7 @@
 
 #include <iostream>
 
+namespace glimac {
 class TrackballCamera {
     private :
     
@@ -19,7 +20,8 @@ class TrackballCamera {
         void rotateLeft(float degrees);
         void rotateUp(float degrees);
         void changeMode();
-        inline bool modefps() {return m_camera_fps;}
+        inline bool modefps() const {return m_camera_fps;}
         inline void lock() {m_locked = !m_locked;}
         glm::mat4 getViewMatrix() const;
 };
+}

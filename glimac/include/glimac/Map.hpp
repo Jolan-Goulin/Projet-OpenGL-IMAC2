@@ -16,10 +16,12 @@
 
 
 
-using namespace glimac;
+namespace glimac {
 
 void update(std::vector<int> &map);
 
-void isIn(int start_map, std::vector<int> &map, Personnage &p);
+void isIn(const int start_map, std::vector<int> &map, Personnage &p);
 
 void initialise(int &start_map, std::vector<int> &map, Personnage &p);
+
+}

@@ -3,8 +3,11 @@
 #include <vector>
 #include "common.hpp"
 
+namespace glimac {
+
 class Personnage {
     private : 
+    float m_vitesse_side = 0;
     float m_vitesse = 0;
     int m_score = 0;
     int m_moon_number =1;
@@ -26,14 +29,14 @@ class Personnage {
     public :
         void saut();
         void avancer();
-        inline int moons() {return m_moon_number;}
-        inline float movedleft() {return m_moved_left;}
-        inline float movedup() {return m_moved_up;}
+        inline int moons() const {return m_moon_number;}
+        inline float movedleft() const {return m_moved_left;}
+        inline float movedup() const {return m_moved_up;}
         inline void upscore(int gain) {m_score += gain; m_moon_number = std::min(32,m_moon_number+1);}
-        inline float distance() {return m_distance;}
-        inline bool isInDanger() {return m_danger;}
-        inline bool isAlive() {return m_alive;}
-        inline bool isMovingRight() {return m_isMovingRight;}
+        inline float distance() const {return m_distance;}
+        inline bool isInDanger() const {return m_danger;}
+        inline bool isAlive() const {return m_alive;}
+        inline bool isMovingRight() const {return m_isMovingRight;}
         inline void movingRight(){m_isMovingRight = true; m_isMovingLeft = false;}
         inline void movingLeft(){m_isMovingLeft = true; m_isMovingRight = false;}
         void colisionObstacle();
@@ -42,5 +45,11 @@ class Personnage {
         inline void resurect(){m_alive=true; m_immortal =100;}
         void initialise();
         inline void pause(){m_pause = !m_pause;}
-        inline bool paused(){return m_pause;}
+        inline bool paused() const {return m_pause;} 
+        inline int score() const {return m_score;}
+        void write_highscore();
+        int highscore();
+        void save(const int &map_start, const std::vector<int> &map);
+        void load(int &map_start, std::vector<int> &map);
 };
+}

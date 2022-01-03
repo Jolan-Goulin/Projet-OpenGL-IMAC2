@@ -1,6 +1,8 @@
 
 #include "glimac/BoxDraw.hpp"
 
+namespace glimac {
+
 const GLuint VERTEX_ATTR_POSITION = 0;
 const GLuint VERTEX_ATTR_NORMAL = 1;
 const GLuint VERTEX_ATTR_TEXCOORD = 2;
@@ -129,11 +131,11 @@ void Box::initialise() {
 
 }
 
-void Box::drawSkybox(TrackballCamera camera, GLuint uMVMatrix, GLuint uMVPMatrix, glm::mat4 ProjMatrix) {
+void Box::drawSkybox(const TrackballCamera &camera, const GLuint uMVMatrix, const GLuint uMVPMatrix, const glm::mat4 &ProjMatrix) const{
 
         // Remove the translation section of the MVMatrix
         glm::mat4 MVMatrix = glm::mat4(glm::mat3(camera.getViewMatrix()));
-
+        glDisable(GL_DEPTH_TEST);
         glUniformMatrix4fv(uMVMatrix, 1, GL_FALSE, glm::value_ptr(MVMatrix));
         glUniformMatrix4fv(uMVPMatrix, 1, GL_FALSE, glm::value_ptr(ProjMatrix));
 
@@ -154,14 +156,16 @@ void Box::drawSkybox(TrackballCamera camera, GLuint uMVMatrix, GLuint uMVPMatrix
 
 }
 
-void Box::drawCase(int x, Personnage p, TrackballCamera camera, GLuint uMVMatrix, GLuint uMVPMatrix, glm::mat4 ProjMatrix){
+void Box::drawCase(const int &x, const Personnage &p, const TrackballCamera &camera, const GLuint uMVMatrix, const GLuint uMVPMatrix, const glm::mat4 &ProjMatrix) const{
     glm::mat4 MVMatrix = camera.getViewMatrix();
     glBindVertexArray(m_vao);
     glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
     
     glBindTexture(GL_TEXTURE_CUBE_MAP, m_texture_rainbow);
-    for (int j=0; j<6; j++){
-        for (int i=0; i<6; i++){
+    int case_lenght = 6;
+    int case_width = 6;
+    for (int j=0; j<case_lenght; j++){
+        for (int i=0; i<case_width; i++){
             // Box transformation 
             glm::mat4 boxMVMatrix = glm::translate(MVMatrix, glm::vec3(-5+2*(j+2*p.movedleft()), -3.0-p.movedup(), -5.0 +2*i + 2*x+p.distance()) ); // Translation * Rotation * Translation
             
@@ -178,14 +182,18 @@ void Box::drawCase(int x, Personnage p, TrackballCamera camera, GLuint uMVMatrix
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void Box::drawCasePit(int x, Personnage p, TrackballCamera camera, GLuint uMVMatrix, GLuint uMVPMatrix, glm::mat4 ProjMatrix){
+void Box::drawCasePit(const int &x, const Personnage &p, const TrackballCamera &camera, const GLuint uMVMatrix, const GLuint uMVPMatrix, const glm::mat4 &ProjMatrix) const{
     glm::mat4 MVMatrix = camera.getViewMatrix();
     glBindVertexArray(m_vao);
     glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
     
+    int case_lenght = 6;
+    int case_width = 6;
+    int pit_start = 2;
+    int pit_end = 4;
     glBindTexture(GL_TEXTURE_CUBE_MAP, m_texture_rainbow);
-    for (int j=0; j<6; j++){
-        for (int i=0; i<2; i++){
+    for (int j=0; j<case_lenght; j++){
+        for (int i=0; i<pit_start; i++){
             // Box transformation 
             glm::mat4 boxMVMatrix = glm::translate(MVMatrix, glm::vec3(-5+2*(j+2*p.movedleft()), -3.0-p.movedup(), -5.0 +2*i + 2*x+p.distance()) ); // Translation * Rotation * Translation
             
@@ -197,7 +205,7 @@ void Box::drawCasePit(int x, Personnage p, TrackballCamera camera, GLuint uMVMat
             // Drawing call
             glDrawArrays(GL_TRIANGLES, 0, 36);
         }
-        for (int i=4; i<6; i++){
+        for (int i=pit_end; i<case_width; i++){
             // Box transformation 
             glm::mat4 boxMVMatrix = glm::translate(MVMatrix, glm::vec3(-5+2*(j+2*p.movedleft()), -3.0-p.movedup(), -5.0 +2*i + 2*x+p.distance()) ); // Translation * Rotation * Translation
             
@@ -215,14 +223,18 @@ void Box::drawCasePit(int x, Personnage p, TrackballCamera camera, GLuint uMVMat
 }
 
 
-void Box::drawObstacle(int x, Personnage p, TrackballCamera camera, GLuint uMVMatrix, GLuint uMVPMatrix, glm::mat4 ProjMatrix){
+void Box::drawObstacle(const int &x, const Personnage &p, const TrackballCamera &camera, const GLuint uMVMatrix, const GLuint uMVPMatrix, const glm::mat4 &ProjMatrix) const{
     glm::mat4 MVMatrix = camera.getViewMatrix();
     glBindVertexArray(m_vao);
     glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
     
+    int obstacle_start_width = 2;
+    int obstacle_end_width = 4;
+    int obstacle_start_length = 2;
+    int obstacle_end_length = 4;
     glBindTexture(GL_TEXTURE_CUBE_MAP, m_texture_rainbow);
-    for (int j=2; j<4; j++){
-        for (int i=2; i<4; i++){
+    for (int j=obstacle_start_width; j<obstacle_end_width; j++){
+        for (int i=obstacle_start_length; i<obstacle_end_length; i++){
             // Box transformation 
             glm::mat4 boxMVMatrix = glm::translate(MVMatrix, glm::vec3(-5+2*(j+2*p.movedleft()), -p.movedup(), -5.0 +2*i + 2*x+p.distance()) ); // Translation * Rotation * Translation
             
@@ -239,7 +251,7 @@ void Box::drawObstacle(int x, Personnage p, TrackballCamera camera, GLuint uMVMa
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-void Box::drawMonkeySkybox( Personnage p, TrackballCamera camera, GLuint uMVMatrix, GLuint uMVPMatrix, glm::mat4 ProjMatrix){
+void Box::drawMonkeySkybox( const Personnage &p, const TrackballCamera &camera, const GLuint uMVMatrix, const GLuint uMVPMatrix, const glm::mat4 &ProjMatrix) const{
     glm::mat4 MVMatrix = camera.getViewMatrix();
     glBindVertexArray(m_vao);
     glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
@@ -256,4 +268,5 @@ void Box::drawMonkeySkybox( Personnage p, TrackballCamera camera, GLuint uMVMatr
     glDrawArrays(GL_TRIANGLES, 0, 36);
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
 }

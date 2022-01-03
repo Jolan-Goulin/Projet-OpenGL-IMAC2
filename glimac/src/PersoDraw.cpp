@@ -1,6 +1,8 @@
 
 #include "glimac/PersoDraw.hpp"
 
+namespace glimac {
+
 const GLuint VERTEX_ATTR_POSITION = 0;
 const GLuint VERTEX_ATTR_NORMAL = 1;
 const GLuint VERTEX_ATTR_TEXCOORD = 2;
@@ -16,23 +18,23 @@ GLuint* texturesInit(){
     // display errors if textures fail to load
     try{
     if (planetEarthTexture == NULL) {
-        std::cout << "Planet Earth texture unique ptr is null. Exit program." << std::endl;
+        std::cerr << "Planet Earth texture unique ptr is null. Exit program." << std::endl;
         throw std::exception_ptr();
     }
     
 
     if (moonTexture == NULL) {
-        std::cout << "Moon texture unique ptr is null. Exit program." << std::endl;
+        std::cerr << "Moon texture unique ptr is null. Exit program." << std::endl;
         throw std::exception_ptr();
     }
 
     if (cloudTexture == NULL) {
-        std::cout << "Cloud texture unique ptr is null. Exit program." << std::endl;
+        std::cerr << "Cloud texture unique ptr is null. Exit program." << std::endl;
         throw std::exception_ptr();
     }
 
     if (rainbowTexture == NULL) {
-        std::cout << "rainbowTexture unique ptr is null. Exit program." << std::endl;
+        std::cerr << "rainbowTexture unique ptr is null. Exit program." << std::endl;
         throw std::exception_ptr();
     }
     }
@@ -277,4 +279,5 @@ PersoDraw::~PersoDraw(){
     glDeleteBuffers(1, &m_vbo);
 	glDeleteVertexArrays(1, &m_vao);
     delete m_textures;
+}
 }

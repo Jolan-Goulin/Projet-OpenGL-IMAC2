@@ -14,7 +14,7 @@
 #include <glimac/TrackballCamera.hpp>
 #include <glimac/SDLWindowManager.hpp>
 
-using namespace glimac;
+namespace glimac { 
 
 struct EarthProgram {
     Program m_Program;
@@ -68,9 +68,10 @@ class PersoDraw{
 
     public :
         void initialise();
-        void drawEarth(TrackballCamera camera, GLuint uMVMatrix, GLuint uNormalMatrix, GLuint uMVPMatrix, glm::mat4 ProjMatrix, float time);
-        void drawMoons(Personnage p, TrackballCamera camera, GLuint uMVMatrix, GLuint uNormalMatrix, GLuint uMVPMatrix, glm::mat4 ProjMatrix, float time);
-        void drawPiece(float x, Personnage p, TrackballCamera camera, GLuint uMVMatrix, GLuint uNormalMatrix, GLuint uMVPMatrix, glm::mat4 ProjMatrix);
+        void drawEarth(const TrackballCamera camera, GLuint uMVMatrix, GLuint uNormalMatrix, GLuint uMVPMatrix, const glm::mat4 ProjMatrix, const float time);
+        void drawMoons(const Personnage p, const TrackballCamera camera, GLuint uMVMatrix, GLuint uNormalMatrix, GLuint uMVPMatrix, const glm::mat4 ProjMatrix, const float time);
+        void drawPiece(const float x, const Personnage p, const TrackballCamera camera, GLuint uMVMatrix, GLuint uNormalMatrix, GLuint uMVPMatrix, const glm::mat4 ProjMatrix);
         PersoDraw();
         ~PersoDraw();
 };
+}

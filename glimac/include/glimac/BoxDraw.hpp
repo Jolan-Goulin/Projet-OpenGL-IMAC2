@@ -14,7 +14,7 @@
 #include <glimac/TrackballCamera.hpp>
 #include <glimac/SDLWindowManager.hpp>
 
-using namespace glimac;
+namespace glimac{
 
 struct SkyBoxProgram{
     Program m_Program;
@@ -41,12 +41,12 @@ class Box{
         GLuint m_texture_rainbow;
     public :
         void initialise();
-        void drawSkybox(TrackballCamera camera, GLuint uMVMatrix, GLuint uMVPMatrix, glm::mat4 ProjMatrix);
-        void drawCase(int x, Personnage p, TrackballCamera camera, GLuint uMVMatrix, GLuint uMVPMatrix, glm::mat4 ProjMatrix);
-        void drawCasePit(int x, Personnage p, TrackballCamera camera, GLuint uMVMatrix, GLuint uMVPMatrix, glm::mat4 ProjMatrix);
-        void drawObstacle(int x, Personnage p, TrackballCamera camera, GLuint uMVMatrix, GLuint uMVPMatrix, glm::mat4 ProjMatrix);
-        void drawMonkeySkybox(Personnage p, TrackballCamera camera, GLuint uMVMatrix, GLuint uMVPMatrix, glm::mat4 ProjMatrix);
+        void drawSkybox(const TrackballCamera &camera, const GLuint uMVMatrix, const GLuint uMVPMatrix, const glm::mat4 &ProjMatrix) const;
+        void drawCase(const int &x, const Personnage &p, const TrackballCamera &camera, const GLuint uMVMatrix, const GLuint uMVPMatrix, const glm::mat4 &ProjMatrix) const;
+        void drawCasePit(const int &x, const Personnage &p, const TrackballCamera &camera, const GLuint uMVMatrix, const GLuint uMVPMatrix, const glm::mat4 &ProjMatrix) const;
+        void drawObstacle(const int &x, const Personnage &p, const TrackballCamera &camera, const GLuint uMVMatrix, const GLuint uMVPMatrix, const glm::mat4 &ProjMatrix) const;
+        void drawMonkeySkybox(const Personnage &p, const TrackballCamera &camera, const GLuint uMVMatrix, const GLuint uMVPMatrix, const glm::mat4 &ProjMatrix) const;
         ~Box();
         Box(){};
 };
-
+}

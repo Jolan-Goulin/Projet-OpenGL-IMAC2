@@ -214,6 +214,7 @@ void Personnage::load(int &map_start, std::vector<int> &map){
     save >> m_time_danger;
     save >> m_immortal;
     m_pause = true;
+    m_alive = true;
     save >> map_start;
     for(int i=0;i<map.size();i++){
         save >> map[i];
